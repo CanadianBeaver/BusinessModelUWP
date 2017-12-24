@@ -22,6 +22,13 @@ namespace UWPApplication.ViewModels
 			private set => SetProperty(ref this.departments, value);
 		}
 
+		private HomePageDataService.ProjectResult[] projects;
+		public HomePageDataService.ProjectResult[] Projects
+		{
+			get => this.projects;
+			private set => SetProperty(ref this.projects, value);
+		}
+
 		private HomePageDataService.EmployeeResult[] employees;
 		public HomePageDataService.EmployeeResult[] Employees
 		{
@@ -44,6 +51,7 @@ namespace UWPApplication.ViewModels
 			base.OnNavigatedTo(e, viewModelState);
 			var result = await this.dataService.GetDataAsync();
 			this.Departments = result.Departments;
+			this.Projects = result.Projects;
 			this.Employees = result.Employees;
 		}
 	}

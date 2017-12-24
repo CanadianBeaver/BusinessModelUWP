@@ -10,6 +10,14 @@
 	mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
 	d:DataContext="{d:DesignInstance Type=ViewModels:HomePageViewModel, IsDesignTimeCreatable=False}">
 
+	<Page.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="ms-appx:///Views/Styles.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Page.Resources>
+
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="32">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"/>
@@ -19,9 +27,12 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
-		<TextBlock Text="Departments" Grid.Column="0"/>
-		<TextBlock Text="Employees" Grid.Column="2"/>
+		<TextBlock Text="Top departments" Style="{StaticResource CaptionTextBlock}" Grid.Column="0"/>
+		<TextBlock Text="Top projects" Style="{StaticResource CaptionTextBlock}" Grid.Column="0" Grid.Row="2"/>
+		<TextBlock Text="Best employees" Style="{StaticResource CaptionTextBlock}" Grid.Column="2"/>
 		<ListView ItemsSource="{Binding Departments}" Grid.Column="0" Grid.Row="1">
 			<ListView.ItemTemplate>
 				<DataTemplate>
@@ -38,7 +49,19 @@
 				</DataTemplate>
 			</ListView.ItemTemplate>
 		</ListView>
-		<ListView ItemsSource="{Binding Employees}" Grid.Column="2" Grid.Row="1">
+		<ListView ItemsSource="{Binding Projects}" Grid.Column="0" Grid.Row="3">
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<StackPanel Orientation="Vertical" Margin="8">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock>Name:</TextBlock>
+							<TextBlock Text="{Binding DisplayName}"/>
+						</StackPanel>
+					</StackPanel>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+		<ListView ItemsSource="{Binding Employees}" Grid.Column="2" Grid.Row="1" Grid.RowSpan="3">
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<StackPanel Orientation="Vertical" Margin="8">

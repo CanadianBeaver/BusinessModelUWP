@@ -17,6 +17,7 @@ namespace BusinessModels
 		public class GetDataResult
 		{
 			public DepartmentResult[] Departments;
+			public ProjectResult[] Projects;
 			public EmployeeResult[] Employees;
 		}
 
@@ -27,6 +28,12 @@ namespace BusinessModels
 			public int FemaleEmployees { get; set; }
 			public int MaleEmployees { get; set; }
 			public int TotalEmployees { get => this.FemaleEmployees + this.MaleEmployees; }
+		}
+
+		public class ProjectResult
+		{
+			public Guid Id { get; set; }
+			public string DisplayName { get; set; }
 		}
 
 		public class EmployeeResult
@@ -61,16 +68,25 @@ namespace BusinessModels
 					DisplayName = c.Name,
 					FemaleEmployees = c.Employees.Count(e => e.Gender == DBConstants.Gender_Female),
 					MaleEmployees = c.Employees.Count(e => e.Gender == DBConstants.Gender_Male),
-				});
+				})
+				.Take(5);
+				var projectsResult = db.Projects.Select(c => new ProjectResult
+				{
+					Id = c.Id,
+					DisplayName = c.Name,
+				})
+				.Take(5);
 				var employeesResult = db.Employees.Select(c => new EmployeeResult
 				{
 					Id = c.Id,
 					DisplayName = this.CalculateDisplayNameForEmployee(c.FirstName, c.LastName, c.MiddleName),
 					Wage = c.WagePerHour,
-				});
+				})
+				.Take(10);
 				return new GetDataResult
 				{
 					Departments = await departmentsResult.ToArrayAsync(),
+					Projects = await projectsResult.ToArrayAsync(),
 					Employees = await employeesResult.ToArrayAsync(),
 				};
 			}
