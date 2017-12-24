@@ -107,6 +107,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DatabaseInitializer.cs" />
+    <Compile Include="EntityGenerator\Generator.cs" />
+    <Compile Include="EntityGenerator\ResourceHelper.cs" />
     <Compile Include="HomePageAlternativeDataService.cs" />
     <Compile Include="HomePageDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -122,6 +124,17 @@
       <Project>{f70e9aa0-0568-46a0-b068-5520b706c7e9}</Project>
       <Name>Database</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EntityGenerator\Names\Men.txt" />
+    <EmbeddedResource Include="EntityGenerator\Names\Women.txt" />
+    <EmbeddedResource Include="EntityGenerator\Names\Surnames.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EntityGenerator\Names\Departments.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EntityGenerator\Names\Projects.txt" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

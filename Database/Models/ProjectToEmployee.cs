@@ -6,6 +6,8 @@ namespace Database.Models
 {
 	public abstract class ProjectToEmployee
 	{
+		[Key] public Guid Id { get; set; }
+
 		public Guid ProjectId { get; set; }
 		public Project Project { get; set; }
 
