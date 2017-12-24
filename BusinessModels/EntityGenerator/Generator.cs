@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Database;
 using Database.Models;
@@ -7,19 +8,33 @@ namespace BusinessModels.EntityGenerator
 {
 	public static class Generator
 	{
-  	/// <summary>
+		/// <summary>
+		/// Get random item from list and remove selected element
+		/// </summary>
+		/// <param name="list"></param>
+		/// <param name="rng"></param>
+		/// <returns></returns>
+		private static string GetRandomNameFromList(ref List<string> list, Random rng)
+		{
+			var index = rng.Next(list.Count);
+			string result = list[index];
+			list.RemoveAt(index);
+			return result;
+		}
+
+		/// <summary>
 		/// Generates data for Departments
 		/// </summary>
 		/// <param name="dbContext"></param>
 		public static void GenerateDepartments(this DatabaseContext dbContext, Random rng)
 		{
-			var names = ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Departments.txt");
-			var count = Math.Min(10, names.Length);
+			var names = new List<string>(ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Departments.txt"));
+			var count = Math.Min(10, names.Count);
 			for (int i = 0; i < count; i++)
 				dbContext.Departments.Add(new Department()
 				{
 					Id = Guid.NewGuid(),
-					Name = names[rng.Next(names.Length)],
+					Name = GetRandomNameFromList(ref names, rng),
 				});
 			dbContext.SaveChanges();
 		}
@@ -30,13 +45,13 @@ namespace BusinessModels.EntityGenerator
 		/// <param name="dbContext"></param>
 		public static void GenerateProjects(this DatabaseContext dbContext, Random rng)
 		{
-			var names = ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Projects.txt");
-			var count = Math.Min(25, names.Length);
+			var names = new List<string>(ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Projects.txt"));
+			var count = Math.Min(25, names.Count);
 			for (int i = 0; i < count; i++)
 				dbContext.Projects.Add(new Project()
 				{
 					Id = Guid.NewGuid(),
-					Name = names[rng.Next(names.Length)],
+					Name = GetRandomNameFromList(ref names, rng),
 				});
 			dbContext.SaveChanges();
 		}
@@ -47,9 +62,9 @@ namespace BusinessModels.EntityGenerator
 		/// <param name="dbContext"></param>
 		public static void GenerateEmployees(this DatabaseContext dbContext, Random rng)
 		{
-			var womenNames = ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Women.txt");
-			var menNames = ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Men.txt");
-			var surNames = ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Surnames.txt");
+			var womenNames = new List<string>(ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Women.txt"));
+			var menNames = new List<string>(ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Men.txt"));
+			var surNames = new List<string>(ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Surnames.txt"));
 			var departmentIDs = dbContext.Departments.Select(d => d.Id);
 			foreach (var departmentId in departmentIDs)
 			{
@@ -57,9 +72,9 @@ namespace BusinessModels.EntityGenerator
 				for (int i = 0; i < count; i++)
 				{
 					int gender = rng.NextDouble() > 0.5 ? DBConstants.Gender_Male : DBConstants.Gender_Female;
-					var firstName = gender == DBConstants.Gender_Male ? menNames[rng.Next(menNames.Length)] : womenNames[rng.Next(womenNames.Length)];
-					var lastName = surNames[rng.Next(surNames.Length)];
-					var middleName = rng.NextDouble() > 0.75 ? menNames[rng.Next(menNames.Length)] : null;
+					var firstName = gender == DBConstants.Gender_Male ? GetRandomNameFromList(ref menNames, rng) : GetRandomNameFromList(ref womenNames, rng);
+					var lastName = GetRandomNameFromList(ref surNames, rng);
+					var middleName = rng.NextDouble() > 0.75 ? GetRandomNameFromList(ref menNames, rng) : null;
 					dbContext.Employees.Add(new Employee()
 					{
 						Id = Guid.NewGuid(),
