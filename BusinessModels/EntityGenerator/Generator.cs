@@ -28,7 +28,7 @@ namespace BusinessModels.EntityGenerator
 		/// <param name="dbContext"></param>
 		public static void GenerateDepartments(this DatabaseContext dbContext, Random rng)
 		{
-			var names = new List<string>(ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Departments.txt"));
+			var names = ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Departments.txt");
 			var count = Math.Min(10, names.Count);
 			for (int i = 0; i < count; i++)
 				dbContext.Departments.Add(new Department()
@@ -45,7 +45,7 @@ namespace BusinessModels.EntityGenerator
 		/// <param name="dbContext"></param>
 		public static void GenerateProjects(this DatabaseContext dbContext, Random rng)
 		{
-			var names = new List<string>(ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Projects.txt"));
+			var names = ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Projects.txt");
 			var count = Math.Min(25, names.Count);
 			for (int i = 0; i < count; i++)
 				dbContext.Projects.Add(new Project()
@@ -62,9 +62,9 @@ namespace BusinessModels.EntityGenerator
 		/// <param name="dbContext"></param>
 		public static void GenerateEmployees(this DatabaseContext dbContext, Random rng)
 		{
-			var womenNames = new List<string>(ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Women.txt"));
-			var menNames = new List<string>(ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Men.txt"));
-			var surNames = new List<string>(ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Surnames.txt"));
+			var womenNames = ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Women.txt");
+			var menNames = ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Men.txt");
+			var surNames = ResourceHelper.GetFileText(@"BusinessModels.EntityGenerator.Names.Surnames.txt");
 			var departmentIDs = dbContext.Departments.Select(d => d.Id);
 			foreach (var departmentId in departmentIDs)
 			{

@@ -6,6 +6,7 @@
 	xmlns:prismMvvm="using:Prism.Windows.Mvvm"
 	xmlns:Views="using:UWPApplication.Views"
 	xmlns:ViewModels="using:UWPApplication.ViewModels"	
+	xmlns:Converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
 	prismMvvm:ViewModelLocator.AutoWireViewModel="True" 
 	mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
 	d:DataContext="{d:DesignInstance Type=ViewModels:HomePageViewModel, IsDesignTimeCreatable=False}">
@@ -15,6 +16,7 @@
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="ms-appx:///Views/Styles.xaml" />
 			</ResourceDictionary.MergedDictionaries>
+			<Converters:StringFormatConverter x:Name="stringFormatConverter" />
 		</ResourceDictionary>
 	</Page.Resources>
 
@@ -38,12 +40,16 @@
 				<DataTemplate>
 					<StackPanel Orientation="Vertical" Margin="8">
 						<StackPanel Orientation="Horizontal">
-							<TextBlock>Name:</TextBlock>
-							<TextBlock Text="{Binding DisplayName}"/>
+							<TextBlock Style="{StaticResource LabelTextBlock}">Name:</TextBlock>
+							<TextBlock Style="{StaticResource LabeledTextBlock}" Text="{Binding DisplayName}"/>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal">
-							<TextBlock>Employees:</TextBlock>
-							<TextBlock Text="{Binding TotalEmployees}"/>
+							<TextBlock Style="{StaticResource LabelTextBlock}">Employees:</TextBlock>
+							<TextBlock Style="{StaticResource LabeledTextBlock}" Text="{Binding TotalEmployees}"/>
+							<TextBlock Text=" ("/>
+							<TextBlock Style="{StaticResource LabeledTextBlock}" Text="{Binding MaleEmployees, Converter={StaticResource stringFormatConverter}, ConverterParameter='M:{0}, '}"/>
+							<TextBlock Style="{StaticResource LabeledTextBlock}" Text="{Binding FemaleEmployees, Converter={StaticResource stringFormatConverter}, ConverterParameter='F:{0}'}"/>
+							<TextBlock Text=")"/>
 						</StackPanel>
 					</StackPanel>
 				</DataTemplate>
@@ -54,8 +60,12 @@
 				<DataTemplate>
 					<StackPanel Orientation="Vertical" Margin="8">
 						<StackPanel Orientation="Horizontal">
-							<TextBlock>Name:</TextBlock>
-							<TextBlock Text="{Binding DisplayName}"/>
+							<TextBlock Style="{StaticResource LabelTextBlock}">Name:</TextBlock>
+							<TextBlock Style="{StaticResource LabeledTextBlock}" Text="{Binding DisplayName}"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Style="{StaticResource LabelTextBlock}">Income:</TextBlock>
+							<TextBlock Style="{StaticResource LabeledTextBlock}" Text="{Binding TotalIncome, Converter={StaticResource stringFormatConverter}, ConverterParameter='${0:N2}'}"/>
 						</StackPanel>
 					</StackPanel>
 				</DataTemplate>
@@ -66,12 +76,12 @@
 				<DataTemplate>
 					<StackPanel Orientation="Vertical" Margin="8">
 						<StackPanel Orientation="Horizontal">
-							<TextBlock>Name:</TextBlock>
-							<TextBlock Text="{Binding DisplayName}"/>
+							<TextBlock Style="{StaticResource LabelTextBlock}">Name:</TextBlock>
+							<TextBlock Style="{StaticResource LabeledTextBlock}" Text="{Binding DisplayName}"/>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal">
-							<TextBlock>Wage:</TextBlock>
-							<TextBlock Text="{Binding Wage}"/>
+							<TextBlock Style="{StaticResource LabelTextBlock}">Wage:</TextBlock>
+							<TextBlock Style="{StaticResource LabeledTextBlock}" Text="{Binding Wage, Converter={StaticResource stringFormatConverter}, ConverterParameter='${0:N2}'}"/>
 						</StackPanel>
 					</StackPanel>
 				</DataTemplate>
