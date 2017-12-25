@@ -40,8 +40,7 @@
 				<DataTemplate>
 					<StackPanel Orientation="Vertical" Margin="8">
 						<StackPanel Orientation="Horizontal">
-							<TextBlock Style="{StaticResource LabelTextBlock}">Name:</TextBlock>
-							<TextBlock Style="{StaticResource LabeledTextBlock}" Text="{Binding DisplayName}"/>
+							<TextBlock Style="{StaticResource LabelTextBlock}" Text="{Binding DisplayName}"/>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal">
 							<TextBlock Style="{StaticResource LabelTextBlock}">Employees:</TextBlock>
@@ -60,12 +59,11 @@
 				<DataTemplate>
 					<StackPanel Orientation="Vertical" Margin="8">
 						<StackPanel Orientation="Horizontal">
-							<TextBlock Style="{StaticResource LabelTextBlock}">Name:</TextBlock>
-							<TextBlock Style="{StaticResource LabeledTextBlock}" Text="{Binding DisplayName}"/>
+							<TextBlock Style="{StaticResource LabelTextBlock}" Text="{Binding DisplayName}"/>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal">
-							<TextBlock Style="{StaticResource LabelTextBlock}">Income:</TextBlock>
-							<TextBlock Style="{StaticResource LabeledTextBlock}" Text="{Binding TotalIncome, Converter={StaticResource stringFormatConverter}, ConverterParameter='${0:N2}'}"/>
+							<TextBlock Style="{StaticResource LabelTextBlock}">Employees:</TextBlock>
+							<TextBlock Style="{StaticResource LabeledTextBlock}" Text="{Binding TotalEmployees}"/>
 						</StackPanel>
 					</StackPanel>
 				</DataTemplate>
@@ -76,9 +74,12 @@
 				<DataTemplate>
 					<StackPanel Orientation="Vertical" Margin="8">
 						<StackPanel Orientation="Horizontal">
-							<TextBlock Style="{StaticResource LabelTextBlock}">Name:</TextBlock>
-							<TextBlock Style="{StaticResource LabeledTextBlock}" Text="{Binding DisplayName}"/>
+							<TextBlock Style="{StaticResource LabelTextBlock}" Text="{Binding DisplayName}"/>
 						</StackPanel>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Style="{StaticResource LabelTextBlock}">Projects:</TextBlock>
+							<TextBlock Style="{StaticResource LabeledTextBlock}" Text="{Binding TotalProjects}"/>
+						</StackPanel>						
 						<StackPanel Orientation="Horizontal">
 							<TextBlock Style="{StaticResource LabelTextBlock}">Wage:</TextBlock>
 							<TextBlock Style="{StaticResource LabeledTextBlock}" Text="{Binding Wage, Converter={StaticResource stringFormatConverter}, ConverterParameter='${0:N2}'}"/>

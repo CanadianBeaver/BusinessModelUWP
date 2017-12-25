@@ -34,13 +34,14 @@ namespace BusinessModels
 		{
 			public Guid Id { get; set; }
 			public string DisplayName { get; set; }
-			public double TotalIncome { get; set; }
+			public int TotalEmployees { get; set; }
 		}
 
 		public class EmployeeResult
 		{
 			public Guid Id { get; set; }
 			public string DisplayName { get; set; }
+			public int TotalProjects { get; set; }
 			public double Wage { get; set; }
 		}
 
@@ -63,35 +64,47 @@ namespace BusinessModels
 		{
 			using (var db = new DatabaseContext())
 			{
-				var departmentsResult = db.Departments.Select(c => new DepartmentResult
-				{
-					Id = c.Id,
-					DisplayName = c.Name,
-					FemaleEmployees = c.Employees.Count(e => e.Gender == DBConstants.Gender_Female),
-					MaleEmployees = c.Employees.Count(e => e.Gender == DBConstants.Gender_Male),
-				})
-				.Take(5);
-				var projectsResult = db.ProjectsToEmployees.OfType<ProductionProject>()
-					.GroupBy(p => new { p.ProjectId, p.Project.Name })
+				var departmentsResult = db.Departments
+					.OrderByDescending(d => d.Employees.Count())
+					.Take(5)
+					.Select(d => new DepartmentResult
+					{
+						Id = d.Id,
+						DisplayName = d.Name,
+						FemaleEmployees = d.Employees.Count(e => e.Gender == DBConstants.Gender_Female),
+						MaleEmployees = d.Employees.Count(e => e.Gender == DBConstants.Gender_Male),
+					})
+					.ToArrayAsync();
+
+				var projectsResult = db.Projects
+					.OrderByDescending(p => p.ProjectToEmployees.Count())
+				  .Take(5)
 					.Select(p => new ProjectResult
 					{
-						Id = p.Key.ProjectId,
-						DisplayName = p.Key.Name,
-						TotalIncome = p.Sum(c => c.IncomePerHour * c.ProductionTime.TotalHours)
+						Id = p.Id,
+						DisplayName = p.Name,
+						TotalEmployees = p.ProjectToEmployees.Count(),
 					})
-					.Take(5);
-				var employeesResult = db.Employees.Select(c => new EmployeeResult
-				{
-					Id = c.Id,
-					DisplayName = this.CalculateDisplayNameForEmployee(c.FirstName, c.LastName, c.MiddleName),
-					Wage = c.WagePerHour,
-				})
-				.Take(10);
+					.ToArrayAsync();
+
+				var employeesResult = db.Employees
+					.OrderByDescending(em => em.ProjectsToEmployee.Count())
+					.ThenBy(em => em.WagePerHour)
+				  .Take(9)
+					.Select(em => new EmployeeResult
+					{
+						Id = em.Id,
+						DisplayName = this.CalculateDisplayNameForEmployee(em.FirstName, em.LastName, em.MiddleName),
+						TotalProjects = em.ProjectsToEmployee.Count(),
+						Wage = em.WagePerHour,
+					})
+					.ToArrayAsync();
+
 				return new GetDataResult
 				{
-					Departments = await departmentsResult.ToArrayAsync(),
-					Projects = await projectsResult.ToArrayAsync(),
-					Employees = await employeesResult.ToArrayAsync(),
+					Departments = await departmentsResult,
+					Projects = await projectsResult,
+					Employees = await employeesResult,
 				};
 			}
 		}

@@ -10,6 +10,8 @@ namespace Database
 		public DbSet<Employee> Employees { get; set; }
 		public DbSet<Project> Projects { get; set; }
 		public DbSet<ProjectToEmployee> ProjectsToEmployees { get; set; }
+		public DbSet<ResearchProject> ResearchProjects { get; set; }
+		public DbSet<ProductionProject> ProductionProjects { get; set; }
 
 #if DEBUG
 		private static LoggerFactory loggerFactory;
