@@ -34,6 +34,7 @@ namespace BusinessModels
 		{
 			public Guid Id { get; set; }
 			public string DisplayName { get; set; }
+			public double TotalIncome { get; set; }
 		}
 
 		public class EmployeeResult
@@ -70,12 +71,15 @@ namespace BusinessModels
 					MaleEmployees = c.Employees.Count(e => e.Gender == DBConstants.Gender_Male),
 				})
 				.Take(5);
-				var projectsResult = db.Projects.Select(c => new ProjectResult
-				{
-					Id = c.Id,
-					DisplayName = c.Name,
-				})
-				.Take(5);
+				var projectsResult = db.ProjectsToEmployees.OfType<ProductionProject>()
+					.GroupBy(p => new { p.ProjectId, p.Project.Name })
+					.Select(p => new ProjectResult
+					{
+						Id = p.Key.ProjectId,
+						DisplayName = p.Key.Name,
+						TotalIncome = p.Sum(c => c.IncomePerHour * c.ProductionTime.TotalHours)
+					})
+					.Take(5);
 				var employeesResult = db.Employees.Select(c => new EmployeeResult
 				{
 					Id = c.Id,

@@ -14,10 +14,10 @@ namespace BusinessModels.EntityGenerator
 		/// <param name="list"></param>
 		/// <param name="rng"></param>
 		/// <returns></returns>
-		private static string GetRandomNameFromList(ref List<string> list, Random rng)
+		private static T GetRandomNameFromList<T>(ref List<T> list, Random rng) 
 		{
 			var index = rng.Next(list.Count);
-			string result = list[index];
+			T result = list[index];
 			list.RemoveAt(index);
 			return result;
 		}
@@ -97,19 +97,19 @@ namespace BusinessModels.EntityGenerator
 		public static void GenerateProjectsToEmployees(this DatabaseContext dbContext, Random rng)
 		{
 			var projectIDs = dbContext.Projects.Select(d => d.Id);
-			var employeeIDs = dbContext.Employees.Select(em => em.Id).ToArray();
+			var employeeIDs = dbContext.Employees.Select(em => em.Id).ToList();
 
 			foreach (var projectId in projectIDs)
 			{
 				int count = rng.Next(10, 100);
+				var employeeIDsForProject = new List<Guid>(employeeIDs);
 				for (int i = 0; i < count; i++)
 				{
-					Guid employeeId = employeeIDs[rng.Next(employeeIDs.Length)];
+					Guid employeeId = GetRandomNameFromList(ref employeeIDsForProject, rng);
 					if (rng.NextDouble() > 0.25)
 					{
 						dbContext.ProjectsToEmployees.Add(new ProductionProject()
 						{
-							Id = Guid.NewGuid(),
 							ProjectId = projectId,
 							EmployeeId = employeeId,
 							ProductionTime = TimeSpan.FromHours(rng.Next(1, 100)),
@@ -121,7 +121,6 @@ namespace BusinessModels.EntityGenerator
 					{
 						dbContext.ProjectsToEmployees.Add(new ResearchProject()
 						{
-							Id = Guid.NewGuid(),
 							ProjectId = projectId,
 							EmployeeId = employeeId,
 							ResearchTime = TimeSpan.FromHours(rng.Next(1, 100)),

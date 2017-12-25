@@ -30,6 +30,7 @@ namespace Database
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
+			builder.Entity<ProjectToEmployee>().HasKey(c => new { c.ProjectId, c.EmployeeId });
 			builder.Entity<ProjectToEmployee>().HasDiscriminator<int>(DBConstants.DiscriminatorFieldName)
 				.HasValue<ResearchProject>(DBConstants.ProjecType_Research)
 				.HasValue<ProductionProject>(DBConstants.ProjecType_Production);
