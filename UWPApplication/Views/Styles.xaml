@@ -3,8 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 	<Style x:Key="CaptionTextBlock" TargetType="TextBlock">
-		<Setter Property="FontSize" Value="20"/>
 		<Setter Property="Margin" Value="4,8,4,4"/>
+		<Setter Property="FontSize" Value="20"/>
+	</Style>
+
+	<Style x:Key="subCaptionTextBlock" TargetType="TextBlock">
+		<Setter Property="FontSize" Value="14"/>
 	</Style>
 
 	<Style x:Key="LabelTextBlock" TargetType="TextBlock">

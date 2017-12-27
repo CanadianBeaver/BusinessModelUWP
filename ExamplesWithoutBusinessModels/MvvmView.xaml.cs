@@ -7,6 +7,7 @@ namespace ExamplesWithoutBusinessModels
 		public MvvmView()
 		{
 			this.InitializeComponent();
+			this.DataContext = new MvvmViewModel();
 		}
 	}
 }

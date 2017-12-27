@@ -22,7 +22,7 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 		<TextBlock Text="This page works as default UWP page without MVVM pattern" Style="{StaticResource subCaptionTextBlock}" Grid.Column="0" Grid.Row="0"/>
-		<TextBlock Text="Departments" Style="{StaticResource CaptionTextBlock}" Grid.Column="0" Grid.Row="1"/>
+		<TextBlock Text="Top departments" Style="{StaticResource CaptionTextBlock}" Grid.Column="0" Grid.Row="1"/>
 		<ListView x:Name="departmentsListView" Grid.Column="0" Grid.Row="2">
 			<ListView.ItemTemplate>
 				<DataTemplate>

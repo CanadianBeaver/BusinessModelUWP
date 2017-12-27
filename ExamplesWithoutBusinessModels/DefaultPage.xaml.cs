@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Database;
 using Database.Models;
 using Windows.UI.Xaml.Navigation;
@@ -12,6 +13,15 @@ namespace ExamplesWithoutBusinessModels
 			this.InitializeComponent();
 		}
 
+		public class DepartmentResult
+		{
+			public Guid Id { get; set; }
+			public string DisplayName { get; set; }
+			public int FemaleEmployees { get; set; }
+			public int MaleEmployees { get; set; }
+			public int TotalEmployees { get => this.FemaleEmployees + this.MaleEmployees; }
+		}
+
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			base.OnNavigatedTo(e);
@@ -20,9 +30,9 @@ namespace ExamplesWithoutBusinessModels
 				this.departmentsListView.ItemsSource = db.Departments
 					.OrderByDescending(d => d.Employees.Count())
 					.Take(5)
-					.Select(d => new
+					.Select(d => new DepartmentResult()
 					{
-						d.Id,
+						Id = d.Id,
 						DisplayName = d.Name,
 						FemaleEmployees = d.Employees.Count(em => em.Gender == DBConstants.Gender_Female),
 						MaleEmployees = d.Employees.Count(em => em.Gender == DBConstants.Gender_Male),
