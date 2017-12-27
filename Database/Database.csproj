@@ -5,6 +5,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="EntityGenerator\Names\Departments.txt" />
+    <None Remove="EntityGenerator\Names\Men.txt" />
+    <None Remove="EntityGenerator\Names\Projects.txt" />
+    <None Remove="EntityGenerator\Names\Surnames.txt" />
+    <None Remove="EntityGenerator\Names\Women.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="EntityGenerator\Names\Departments.txt" />
+    <EmbeddedResource Include="EntityGenerator\Names\Men.txt" />
+    <EmbeddedResource Include="EntityGenerator\Names\Projects.txt" />
+    <EmbeddedResource Include="EntityGenerator\Names\Surnames.txt" />
+    <EmbeddedResource Include="EntityGenerator\Names\Women.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.0.1" />
   </ItemGroup>
 

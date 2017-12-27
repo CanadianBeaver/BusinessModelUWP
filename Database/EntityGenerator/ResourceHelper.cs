@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace BusinessModels.EntityGenerator
+namespace Database.EntityGenerator
 {
 	internal static class ResourceHelper
 	{
@@ -24,7 +24,7 @@ namespace BusinessModels.EntityGenerator
 			return result;
 		}
 
-		public static List<string> GetFileText(string fileName)
+		internal static List<string> GetFileText(string fileName)
 		{
 			var result = ReadResourceAsStrings(typeof(ResourceHelper).GetTypeInfo().Assembly, fileName);
 			return result;
