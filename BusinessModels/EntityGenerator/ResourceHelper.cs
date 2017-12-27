@@ -16,7 +16,7 @@ namespace BusinessModels.EntityGenerator
 					while (reader.Peek() >= 0)
 					{
 						var line = reader.ReadLine();
-						if (!string.IsNullOrWhiteSpace(line) && !line.StartsWith('*')) // we skip empty lines or lines with * at the beginning
+						if (!string.IsNullOrWhiteSpace(line) && !line.StartsWith("*")) // we skip empty lines or lines with * at the beginning
 							result.Add(line.Trim());
 					}
 				}
