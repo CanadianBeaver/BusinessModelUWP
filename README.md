@@ -124,13 +124,16 @@ namespace ExamplesWithoutBusinessModels
   }
 }
 ```
-
-## The Model
-
-...
+The key features are:
+* In XAML code define controls that will be used for data visualization
+* In code-behind should be realized logic for extracting and binding data
+* Also, in code-behind can be defined properties for keeping extracted data. These properties can be bind in XAML via `{x-Bind}` markup extension.
 
 ## Default Model View approach
+...
 
+## The Model
+...
 
 ## MVVM
 
