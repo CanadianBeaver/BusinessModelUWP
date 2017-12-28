@@ -8,7 +8,7 @@ The [Universal Windows Platform](https://en.wikipedia.org/wiki/Universal_Windows
 
 Basically, the development of UWP applications is similar to the development of WPF applications based on the MVVM template.
 
-## Default UWP approach
+### Default UWP approach
 
 With the classical approach the UWP application encapsulates visualization logic and business logic in the same place, as well as SQL queries or queries to the services. Developer has to create a page and code that is serving this page (code-behind). This approach is perfect for implementing the simple requirements and the simple business logic.
 
@@ -20,7 +20,7 @@ As an alternative, in code-behind can be defined properties for keeping extracte
 
 [Example](https://github.com/CanadianBeaver/BusinessModelUWP/wiki/Classical-UWP-approach)
 
-## Default MVVM approach
+### Default MVVM approach
 
 With the MVVM approach the UWP application encapsulates visualization logic and business logic separately. Developer has to create a page (that is View) just for visualization the data. The SQL queries or queries to the services must be implemented in the separated class (that is ViewModel), where results of these queries should be stored in public properties. This approach uses Two-Way Databinding and Commands for communicating between Views and ViewModels. In many cases, the ViewModel implements the INotifyPropertyChanged interface to notify the View about changing in the properties.
 
