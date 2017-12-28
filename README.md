@@ -10,60 +10,7 @@ The [Universal Windows Platform](https://en.wikipedia.org/wiki/Universal_Windows
 
 With the classical approach the UWP application encapsulates visualization logic and business logic in the same place, as well as SQL queries or queries to the services. Developer has to create a page and code that is serving this page (code-behind). This approach is perfect for implementing the simple requirements and the simple business logic.
 
-```HTML
-<ListView x:Name="departmentsListView">
-  <ListView.ItemTemplate>
-    <DataTemplate>
-      <StackPanel Orientation="Vertical">
-        <StackPanel Orientation="Horizontal">
-          <TextBlock Text="{Binding DisplayName}"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-          <TextBlock>Male employees:</TextBlock>
-          <TextBlock Text="{Binding MaleEmployees}"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-          <TextBlock>Female employees:</TextBlock>
-          <TextBlock Text="{Binding FemaleEmployees}"/>
-        </StackPanel>
-      </StackPanel>
-    </DataTemplate>
-  </ListView.ItemTemplate>
-</ListView>
-```
-
-```cs
-public sealed partial class DefaultPage
-{
-  public DefaultPage()
-  {
-    this.InitializeComponent();
-  }
-
-  protected override void OnNavigatedTo(NavigationEventArgs e)
-  {
-    base.OnNavigatedTo(e);
-    using (var db = new DatabaseContext())
-    {
-      this.departmentsListView.ItemsSource = db.Departments
-        .OrderByDescending(d => d.Employees.Count())
-        .Take(5)
-        .Select(d => new
-        {
-          Id = d.Id,
-          DisplayName = d.Name,
-          FemaleEmployees = d.Employees.Count(em => em.Gender == DBConstants.Gender_Female),
-          MaleEmployees = d.Employees.Count(em => em.Gender == DBConstants.Gender_Male),
-        })
-        .ToArray();
-    }
-  }
-}
-```
-
-## The Model
-
-Let's start with a database that has tables for storing departments and employees:
+Let's look at a typical example with a database that has tables for storing departments and employees:
 
 ```cs
 namespace Database.Models
@@ -94,7 +41,7 @@ namespace Database.Models
   }
 }
 ```
-
+The database context for SQLite looks like following:
 ```cs
 namespace Database
 {
@@ -110,6 +57,77 @@ namespace Database
   }
 }
 ```
+Let's implement the UWP page with code-behind that extracts departments and related employees from database and visualizes these rows. The XAML:
+
+```HTML
+<Page x:Class="ExamplesWithoutBusinessModels.DefaultPage"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+
+  <ListView x:Name="departmentsListView">
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <StackPanel Orientation="Vertical">
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding DisplayName}"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal">
+            <TextBlock>Male employees:</TextBlock>
+            <TextBlock Text="{Binding MaleEmployees}"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal">
+            <TextBlock>Female employees:</TextBlock>
+            <TextBlock Text="{Binding FemaleEmployees}"/>
+          </StackPanel>
+        </StackPanel>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+  </ListView>
+</Page>
+```
+The code-behind:
+```cs
+using System.Linq;
+using Database;
+using Database.Models;
+using Windows.UI.Xaml.Navigation;
+
+namespace ExamplesWithoutBusinessModels
+{
+  public sealed partial class DefaultPage
+  {
+    public DefaultPage()
+    {
+      this.InitializeComponent();
+    }
+
+    protected override void OnNavigatedTo(NavigationEventArgs e)
+    {
+      base.OnNavigatedTo(e);
+      using (var db = new DatabaseContext())
+      {
+        this.departmentsListView.ItemsSource = db.Departments
+          .OrderByDescending(d => d.Employees.Count())
+          .Take(5)
+          .Select(d => new
+          {
+            Id = d.Id,
+            DisplayName = d.Name,
+            FemaleEmployees = d.Employees.Count(em => em.Gender == DBConstants.Gender_Female),
+            MaleEmployees = d.Employees.Count(em => em.Gender == DBConstants.Gender_Male),
+          })
+          .ToArray();
+      }
+    }
+  }
+}
+```
+
+## The Model
+
+...
 
 ## Default Model View approach
 
