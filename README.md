@@ -4,7 +4,7 @@ I would like to share my experience in developing the UWP applications based on 
 
 ## Introduction
 
-The Universal Windows Platform (https://en.wikipedia.org/wiki/Universal_Windows_Platform) is a great idea by Microsoft (with "blackjack and technologies") that allows to develop application with one API and allows to reach a lot of devices such as Desktops, Xboxs, HoloLens and Surfaces. Also, SQLite is the recommended database for creating local storage in the UWP applications and Microsoft introduced the Entity Framework Core (https://docs.microsoft.com/en-us/windows/uwp/data-access/sqlite-databases) for software developers. Basically, the development of UWP applications is similar to the development of WPF applications based on the MVVM template.
+The [Universal Windows Platform](https://en.wikipedia.org/wiki/Universal_Windows_Platform) is a great idea by Microsoft (with "blackjack and technologies") that allows to develop application with one API and allows to reach a lot of devices such as Desktops, Xboxs, HoloLens and Surfaces. Also, SQLite is the recommended database for creating local storage in the UWP applications and Microsoft introduced the [Entity Framework Core](https://docs.microsoft.com/en-us/windows/uwp/data-access/sqlite-databases) for software developers. Basically, the development of UWP applications is similar to the development of WPF applications based on the MVVM template.
 
 ## Default UWP approach
 
