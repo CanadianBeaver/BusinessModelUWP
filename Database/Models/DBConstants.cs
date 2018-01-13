@@ -4,13 +4,16 @@ using System.Text;
 
 namespace Database.Models
 {
-	public struct DBConstants
+	public static class DBConstants
 	{
 		public const string DiscriminatorFieldName = "TypeOf"; // Default value is "Discriminator";
 
 		// Discriminators for ProjectToEmployee
-		public const int ProjecType_Research = 1;
-		public const int ProjecType_Production = 2;
+		public static class ProjecType
+		{
+			public const int Research = 1;
+			public const int Production = 2;
+		}
 
 		// Genders 
 		public const int Gender_Female = 0;
