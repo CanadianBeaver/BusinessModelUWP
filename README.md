@@ -33,29 +33,6 @@ Also, the ViewModel can implement the commands that can be executed from View.
 
 [Example](https://github.com/CanadianBeaver/BusinessModelUWP/wiki/MVVM-approach)
 
-## The Model
-...
-
-## Prism  and Unity
-
-Model, View, View Model, Business Model, Dependency Injection, 
-
-### Preparation
-
-Creating projects
-
-## Model
-
-Entity Framework Core, DatabaseContextLoggerProvider,
-
-## Business Model 
-
-...
-
-## View Model
-
-...
-
 ## Animation
 
 ...
