@@ -32,7 +32,3 @@ The key features are:
 Also, the ViewModel can implement the commands that can be executed from View.
 
 [Example](https://github.com/CanadianBeaver/BusinessModelUWP/wiki/MVVM-approach)
-
-## Animation
-
-...
