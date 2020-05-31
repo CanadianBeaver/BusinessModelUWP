@@ -4,7 +4,7 @@ I would like to share my experience in developing the UWP applications based on 
 
 ## Introduction
 
-The [Universal Windows Platform](https://en.wikipedia.org/wiki/Universal_Windows_Platform) is a great idea by Microsoft (with "blackjack and technologies") that allows to develop desktop applications for different devices, such as Desktops, Phones, Xboxs, HoloLens and Surfaces. Microsoft offers a variety of technologies for developers, most of them are open-source and can be found on github. Also, SQLite is the recommended database for creating local storage in the UWP applications and [Entity Framework Core](https://docs.microsoft.com/en-us/windows/uwp/data-access/sqlite-databases) has been introduced for it.
+The [Universal Windows Platform](https://en.wikipedia.org/wiki/Universal_Windows_Platform) is a great idea by Microsoft, that allows to develop desktop applications for different devices, such as Desktops, Phones, Xboxs, HoloLens and Surfaces. Microsoft offers a variety of technologies for developers, most of them are open-source and can be found on github. Also, SQLite is the recommended database for creating local storage in the UWP applications and [Entity Framework Core](https://docs.microsoft.com/en-us/windows/uwp/data-access/sqlite-databases) has been introduced for it.
 
 Basically, the development of UWP applications is similar to the development of WPF applications based on the MVVM template. We can use data binding in View, as well as commands and dependency injection in ViewModel. The Prism library can help us to do it, because has been implemented for UWP and is helpful for developing applications based on MVVM pattern with dependency injection and commands. 
 
